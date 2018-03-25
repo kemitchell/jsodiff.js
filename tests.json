@@ -10,7 +10,32 @@
     "diff": [
       {
         "op": "replace",
-        "path": "/x/",
+        "path": [
+          "x"
+        ],
+        "value": 2
+      }
+    ]
+  },
+  {
+    "comment": "replace nested number property",
+    "a": {
+      "x": {
+        "y": 1
+      }
+    },
+    "b": {
+      "x": {
+        "y": 2
+      }
+    },
+    "diff": [
+      {
+        "op": "replace",
+        "path": [
+          "x",
+          "y"
+        ],
         "value": 2
       }
     ]

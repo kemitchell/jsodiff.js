@@ -20,7 +20,18 @@ module.exports = function (a, b, options) {
 }
 
 function process (mapping) {
-  return mapping
+  var returned = []
+  for (var index = 0; index < mapping.length; index++) {
+    var operation = mapping[index]
+    if (operation.type === 'update') {
+      returned.push({
+        op: 'replace',
+        path: operation.t1.path,
+        value: operation.t2.label.value
+      })
+    }
+  }
+  return returned
 }
 
 function getChildren (node) { return node.children }
