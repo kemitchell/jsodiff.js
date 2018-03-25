@@ -142,7 +142,7 @@
     ]
   },
   {
-    "comment": "remove property from object",
+    "comment": "remove number property from object",
     "a": {
       "x": 1
     },
@@ -157,7 +157,7 @@
     ]
   },
   {
-    "comment": "remove property from nested object",
+    "comment": "remove number property from nested object",
     "a": {
       "x": {
         "y": 1
