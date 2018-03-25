@@ -2,10 +2,13 @@ var deepEqual = require('fast-deep-equal')
 var jsonolt = require('jsonolt')
 var zs = require('zhang-shasha')
 
+var encode = jsonolt.encode
+var decode = jsonolt.decode
+
 module.exports = function (a, b, options) {
   options = options || {}
-  var aOLT = jsonolt.encode(a)
-  var bOLT = jsonolt.encode(b)
+  var aOLT = encode(a)
+  var bOLT = encode(b)
   var insertCost = options.insertCost || defaultInsertCost
   var removeCost = options.removeCost || defaultRemoveCost
   var updateCost = options.updateCost
@@ -27,7 +30,7 @@ function process (mapping) {
     var oldNode = operation.t1
     var newNode = operation.t2
     if (newNode) {
-      var newValue = newNode.label.value || jsonolt.decode(operation.t2)
+      var newValue = newNode.label.value || decode(operation.t2)
     }
     if (type === 'update') {
       var newNode = operation.t2
