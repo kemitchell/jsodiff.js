@@ -39,5 +39,49 @@
         "value": 2
       }
     ]
+  },
+  {
+    "comment": "replace array number with number",
+    "a": [
+      1,
+      2,
+      3
+    ],
+    "b": [
+      1,
+      5,
+      3
+    ],
+    "diff": [
+      {
+        "op": "replace",
+        "path": [
+          1
+        ],
+        "value": 5
+      }
+    ]
+  },
+  {
+    "comment": "replace array number with array",
+    "a": [
+      1,
+      2,
+      3
+    ],
+    "b": [
+      1,
+      [],
+      3
+    ],
+    "diff": [
+      {
+        "op": "replace",
+        "path": [
+          1
+        ],
+        "value": []
+      }
+    ]
   }
 ]

@@ -24,10 +24,14 @@ function process (mapping) {
   for (var index = 0; index < mapping.length; index++) {
     var operation = mapping[index]
     if (operation.type === 'update') {
+      var newNode = operation.t2
+      var value = newNode.label.value
+        ? operation.t2.label.value
+        : jsonolt.decode(operation.t2)
       returned.push({
         op: 'replace',
         path: operation.t1.path,
-        value: operation.t2.label.value
+        value: value
       })
     }
   }
