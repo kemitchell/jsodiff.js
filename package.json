@@ -1,0 +1,16 @@
+{
+  "name": "jsodiff",
+  "version": "0.0.0",
+  "description": "diff JSON as ordered, labeled trees",
+  "author": "Kyle E. Mitchell <kyle@kemitchell.com> (https://kemitchell.com/)",
+  "repository": "kemitchell/jsodiff.js",
+  "homepage": "https://github.com/kemitchell/jsodiff.js",
+  "dependencies": {
+    "fast-deep-equal": "^1.1.0",
+    "jsonolt": "^2.1.0",
+    "zhang-shasha": "^1.0.0"
+  },
+  "devDependencies": {
+    "tape": "^4.9.0"
+  }
+}
