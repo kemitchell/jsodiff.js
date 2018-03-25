@@ -24,6 +24,7 @@ function process (mapping) {
   for (var index = 0; index < mapping.length; index++) {
     var operation = mapping[index]
     var type = operation.type
+    var oldNode = operation.t1
     var newNode = operation.t2
     if (newNode) {
       var newValue = newNode.label.value || jsonolt.decode(operation.t2)
@@ -40,6 +41,11 @@ function process (mapping) {
         op: 'add',
         path: newNode.path,
         value: newValue
+      })
+    } else if (type === 'remove') {
+      returned.push({
+        op: 'remove',
+        path: oldNode.path
       })
     }
   }

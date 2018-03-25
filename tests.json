@@ -125,5 +125,20 @@
         "value": 3
       }
     ]
+  },
+  {
+    "comment": "remove number from array",
+    "a": [
+      1
+    ],
+    "b": [],
+    "diff": [
+      {
+        "op": "remove",
+        "path": [
+          0
+        ]
+      }
+    ]
   }
 ]
