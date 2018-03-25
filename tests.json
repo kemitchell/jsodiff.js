@@ -140,5 +140,40 @@
         ]
       }
     ]
+  },
+  {
+    "comment": "remove property from object",
+    "a": {
+      "x": 1
+    },
+    "b": {},
+    "diff": [
+      {
+        "op": "remove",
+        "path": [
+          "x"
+        ]
+      }
+    ]
+  },
+  {
+    "comment": "remove property from nested object",
+    "a": {
+      "x": {
+        "y": 1
+      }
+    },
+    "b": {
+      "x": {}
+    },
+    "diff": [
+      {
+        "op": "remove",
+        "path": [
+          "x",
+          "y"
+        ]
+      }
+    ]
   }
 ]
