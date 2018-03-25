@@ -83,5 +83,47 @@
         "value": []
       }
     ]
+  },
+  {
+    "comment": "prepend number to array",
+    "a": [
+      1,
+      2
+    ],
+    "b": [
+      0,
+      1,
+      2
+    ],
+    "diff": [
+      {
+        "op": "add",
+        "path": [
+          0
+        ],
+        "value": 0
+      }
+    ]
+  },
+  {
+    "comment": "append number to array",
+    "a": [
+      1,
+      2
+    ],
+    "b": [
+      1,
+      2,
+      3
+    ],
+    "diff": [
+      {
+        "op": "add",
+        "path": [
+          2
+        ],
+        "value": 3
+      }
+    ]
   }
 ]

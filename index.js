@@ -23,15 +23,23 @@ function process (mapping) {
   var returned = []
   for (var index = 0; index < mapping.length; index++) {
     var operation = mapping[index]
-    if (operation.type === 'update') {
+    var type = operation.type
+    var newNode = operation.t2
+    if (newNode) {
+      var newValue = newNode.label.value || jsonolt.decode(operation.t2)
+    }
+    if (type === 'update') {
       var newNode = operation.t2
-      var value = newNode.label.value
-        ? operation.t2.label.value
-        : jsonolt.decode(operation.t2)
       returned.push({
         op: 'replace',
         path: operation.t1.path,
-        value: value
+        value: newValue
+      })
+    } else if (type === 'insert') {
+      returned.push({
+        op: 'add',
+        path: newNode.path,
+        value: newValue
       })
     }
   }
