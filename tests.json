@@ -142,6 +142,36 @@
     ]
   },
   {
+    "comment": "remove object from array",
+    "a": [
+      {}
+    ],
+    "b": [],
+    "diff": [
+      {
+        "op": "remove",
+        "path": [
+          0
+        ]
+      }
+    ]
+  },
+  {
+    "comment": "remove array from array",
+    "a": [
+      []
+    ],
+    "b": [],
+    "diff": [
+      {
+        "op": "remove",
+        "path": [
+          0
+        ]
+      }
+    ]
+  },
+  {
     "comment": "remove number property from object",
     "a": {
       "x": 1
@@ -161,6 +191,76 @@
     "a": {
       "x": {
         "y": 1
+      }
+    },
+    "b": {
+      "x": {}
+    },
+    "diff": [
+      {
+        "op": "remove",
+        "path": [
+          "x",
+          "y"
+        ]
+      }
+    ]
+  },
+  {
+    "comment": "remove array property from object",
+    "a": {
+      "x": []
+    },
+    "b": {},
+    "diff": [
+      {
+        "op": "remove",
+        "path": [
+          "x"
+        ]
+      }
+    ]
+  },
+  {
+    "comment": "remove number property from nested object",
+    "a": {
+      "x": {
+        "y": []
+      }
+    },
+    "b": {
+      "x": {}
+    },
+    "diff": [
+      {
+        "op": "remove",
+        "path": [
+          "x",
+          "y"
+        ]
+      }
+    ]
+  },
+  {
+    "comment": "remove object property from object",
+    "a": {
+      "x": {}
+    },
+    "b": {},
+    "diff": [
+      {
+        "op": "remove",
+        "path": [
+          "x"
+        ]
+      }
+    ]
+  },
+  {
+    "comment": "remove number property from nested object",
+    "a": {
+      "x": {
+        "y": []
       }
     },
     "b": {
