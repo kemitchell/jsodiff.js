@@ -46,10 +46,17 @@ function process (mapping) {
         value: newValue
       })
     } else if (type === 'remove') {
-      returned.push({
-        op: 'remove',
-        path: oldNode.path
-      })
+      if (oldNode.path.length === 0) {
+        returned.push({
+          op: 'remove',
+          path: oldNode.path.concat(0)
+        })
+      } else {
+        returned.push({
+          op: 'remove',
+          path: oldNode.path
+        })
+      }
     }
   }
   return returned
