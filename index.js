@@ -5,14 +5,29 @@ var zs = require('zhang-shasha')
 var encode = jsonolt.encode
 var decode = jsonolt.decode
 
+var UPDATE_PREFERENCE = 1
+var REMOVE_PREFERENCE = 2
+var INSERT_PREFERENCE = 3
+
 module.exports = function (a, b, options) {
   options = options || {}
   var aOLT = encode(a)
   var bOLT = encode(b)
-  var insertCost = options.insertCost || defaultInsertCost
-  var removeCost = options.removeCost || defaultRemoveCost
+  var insertCost = options.insertCost
+    ? function (node) {
+      return options.insertCost(node) + INSERT_PREFERENCE
+    }
+    : defaultInsertCost
+  var removeCost = options.removeCost
+    ? function (node) {
+      return options.removeCost(node) + REMOVE_PREFERENCE
+    }
+    : defaultRemoveCost
   var updateCost = options.updateCost
-    ? function (a, b) { return options.updateCost(a.label, b.label) }
+    ? function (a, b) {
+      var cost = options.updateCost(a, b)
+      return cost === 0 ? 0 : (cost + UPDATE_PREFERENCE)
+    }
     : defaultUpdateCost
   var mapping = zs.mapping(
     aOLT, bOLT,
@@ -33,7 +48,6 @@ function process (mapping) {
       var newValue = newNode.label.value || decode(operation.t2)
     }
     if (type === 'update') {
-      var newNode = operation.t2
       returned.push({
         op: 'replace',
         path: operation.t1.path,
@@ -64,10 +78,14 @@ function process (mapping) {
 
 function getChildren (node) { return node.children }
 
-function defaultInsertCost (node) { return 1 }
+function defaultInsertCost (node) {
+  return 1 + INSERT_PREFERENCE
+}
 
-function defaultRemoveCost (node) { return 1 }
+function defaultRemoveCost (node) {
+  return 1 + REMOVE_PREFERENCE
+}
 
 function defaultUpdateCost (a, b) {
-  return deepEqual(a.label, b.label) ? 0 : 1
+  return deepEqual(a.label, b.label) ? 0 : (1 + UPDATE_PREFERENCE)
 }
