@@ -172,6 +172,26 @@
     ]
   },
   {
+    "comment": "remove object from object",
+    "a": {
+      "x": {
+        "x": {}
+      }
+    },
+    "b": {
+      "x": {}
+    },
+    "diff": [
+      {
+        "op": "remove",
+        "path": [
+          "x",
+          "x"
+        ]
+      }
+    ]
+  },
+  {
     "comment": "remove array from array from array",
     "a": [
       1,
@@ -196,6 +216,35 @@
           1,
           0,
           0
+        ]
+      }
+    ]
+  },
+  {
+    "comment": "remove object from object from object",
+    "a": {
+      "x": 1,
+      "y": {
+        "x": 1,
+        "y": {},
+        "z": 3
+      },
+      "z": 3
+    },
+    "b": {
+      "x": 1,
+      "y": {
+        "x": 1,
+        "z": 3
+      },
+      "z": 3
+    },
+    "diff": [
+      {
+        "op": "remove",
+        "path": [
+          "y",
+          "y"
         ]
       }
     ]
