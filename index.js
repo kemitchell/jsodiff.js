@@ -39,6 +39,8 @@ module.exports = function (a, b, options) {
 
 function process (mapping) {
   var returned = []
+  // See "Insert Nested Insert Operations" below.
+  var inserted = []
   for (var index = 0; index < mapping.length; index++) {
     var operation = mapping[index]
     var type = operation.type
@@ -54,11 +56,48 @@ function process (mapping) {
         value: newValue
       })
     } else if (type === 'insert') {
-      returned.push({
-        op: 'add',
-        path: newNode.path,
-        value: newValue
+      // Ignore Nested Insert Operations
+      //
+      // If the value inserted compromises more than one graph node,
+      // the tree-edit-distance algorithm will return multiple insert
+      // edit operations, one for each graph node in the inserted value.
+      //
+      // A: []
+      //
+      //    Array
+      //
+      // B: [[[1]]]
+      //
+      //    Array at []
+      //    |
+      //    +-Array at [0]
+      //      |
+      //      +-Array at [0, 0]
+      //        |
+      //        +-Number: 1 at [0, 0, 0]
+      //
+      // Tree Edit Operations:
+      // - Insert Array    at [0]
+      // - Insert Array    at [0, 0]
+      // - Insert Number 1 at [0, 0, 0]
+      //
+      // Since those operations will come to us with the _entire_
+      // inserted value as a property of the edit operation, we can
+      // RFC6902 "add" once and ignore subsequent insert operations
+      // inside the same path.
+      var insertingPath = newNode.path
+      var insertingParentPath = insertingPath.slice(0, -1)
+      var alreadyInserted = inserted.some(function (insertedPath) {
+        return deepEqual(insertedPath, insertingParentPath)
       })
+      inserted.push(insertingPath)
+      if (!alreadyInserted) {
+        returned.push({
+          op: 'add',
+          path: newNode.path,
+          value: newValue
+        })
+      }
     } else if (type === 'remove') {
       if (oldNode.path.length === 0) {
         returned.push({
