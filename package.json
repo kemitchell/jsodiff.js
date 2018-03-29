@@ -7,7 +7,7 @@
   "homepage": "https://github.com/kemitchell/jsodiff.js",
   "dependencies": {
     "fast-deep-equal": "^1.1.0",
-    "jsonolt": "^2.1.0",
+    "jsonolt": "^2.1.1",
     "zhang-shasha": "^1.0.0"
   },
   "devDependencies": {
