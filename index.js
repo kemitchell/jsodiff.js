@@ -50,9 +50,11 @@ function process (mapping) {
       var newValue = newNode.label.value || decode(operation.t2)
     }
     if (type === 'update') {
+      var updatingPath = operation.t1.path
+      inserted.push(updatingPath)
       returned.push({
         op: 'replace',
-        path: operation.t1.path,
+        path: updatingPath,
         value: newValue
       })
     } else if (type === 'insert') {
@@ -99,17 +101,10 @@ function process (mapping) {
         })
       }
     } else if (type === 'remove') {
-      if (oldNode.path.length === 0) {
-        returned.push({
-          op: 'remove',
-          path: oldNode.path.concat(0)
-        })
-      } else {
-        returned.push({
-          op: 'remove',
-          path: oldNode.path
-        })
-      }
+      returned.push({
+        op: 'remove',
+        path: oldNode.path
+      })
     }
   }
   return returned
