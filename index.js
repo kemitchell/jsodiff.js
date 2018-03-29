@@ -127,6 +127,8 @@ function process (mapping) {
           from: oldNode.path,
           path: oldNode.path.slice(0, -1)
         })
+      // If a tree-edit remove operation affects a leaf node, translate
+      // to an RFC6902 remove.
       } else {
         returned.push({
           op: 'remove',
