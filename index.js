@@ -51,6 +51,7 @@ function process (mapping) {
     }
     if (type === 'update') {
       var updatingPath = operation.t1.path
+      // See "Insert Nested Insert Operations" below.
       inserted.push(updatingPath)
       returned.push({
         op: 'replace',
