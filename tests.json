@@ -172,7 +172,7 @@
     ]
   },
   {
-    "comment": "remove object from object",
+    "comment": "promote object",
     "a": {
       "y": {
         "x": {}
@@ -183,19 +183,12 @@
     },
     "diff": [
       {
-        "op": "remove",
-        "path": [
-          "y"
-        ]
-      },
-      {
-        "op": "add",
-        "path": [
+        "op": "move",
+        "from": [
           "y"
         ],
-        "value": {
-          "x": {}
-        }
+        "path": [
+        ]
       }
     ]
   },

@@ -102,10 +102,37 @@ function process (mapping) {
         })
       }
     } else if (type === 'remove') {
-      returned.push({
-        op: 'remove',
-        path: oldNode.path
-      })
+      var removingValue = oldNode
+      var removingHasChildren = (
+        removingValue.children &&
+        removingValue.children.length !== 0
+      )
+      // Translate Tree-Edit Remove Operations
+      //
+      // A "remove" operation from the tree-edit algorithm doesn't
+      // instruct us to remove a value and all of its children. Rather,
+      // it instructs us to remove the specific node referenced, and to
+      // promote any children it has to children of the removed node's
+      // parent node.
+      //
+      // RFC6902's remove operation, by contrast, instructs the path
+      // algorithm to remove the value at the path, along with all of
+      // its children.
+      //
+      // If a tree-edit remove operation affects a value with children,
+      // translate that operation to an RFC6902 move operation instead.
+      if (removingHasChildren) {
+        returned.push({
+          op: 'move',
+          from: oldNode.path,
+          path: oldNode.path.slice(0, -1)
+        })
+      } else {
+        returned.push({
+          op: 'remove',
+          path: oldNode.path
+        })
+      }
     }
   }
   return returned
